@@ -1,0 +1,467 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "evaluation_request",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "target_session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recorded_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "kind": {
+            "enum": [
+              "HQ_PLAN",
+              "DEVICE",
+              "ATHLETE_REPORT",
+              "CORRECTION"
+            ]
+          },
+          "supersedes": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "payload": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "source",
+          "recorded_at",
+          "kind",
+          "supersedes",
+          "payload"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "athlete_data": {
+      "type": "object",
+      "properties": {
+        "athlete_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sessions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "planned": {
+                "type": "object",
+                "properties": {
+                  "session_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "athlete_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "source_fact_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true
+                  },
+                  "plan_version": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "authority": {
+                    "const": "HQ"
+                  },
+                  "scheduled_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "workout_type": {
+                    "enum": [
+                      "RUN_EASY",
+                      "RUN_THRESHOLD",
+                      "BIKE_AEROBIC",
+                      "BIKE_SWEETSPOT",
+                      "BIKE_THRESHOLD",
+                      "SWIM_TECHNIQUE",
+                      "SWIM_CSS",
+                      "STRENGTH_GENERAL",
+                      "CROSSFIT"
+                    ]
+                  },
+                  "sport": {
+                    "enum": [
+                      "RUN",
+                      "BIKE",
+                      "SWIM",
+                      "STRENGTH",
+                      "MIXED"
+                    ]
+                  },
+                  "stimuli": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "AEROBIC",
+                        "THRESHOLD",
+                        "SWEETSPOT",
+                        "TECHNIQUE",
+                        "STRENGTH",
+                        "ANAEROBIC"
+                      ]
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true
+                  },
+                  "dose": {
+                    "type": "object",
+                    "properties": {
+                      "duration_min": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      },
+                      "intervals": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "work_min": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "rest_min": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "intensity": {
+                        "enum": [
+                          "EASY",
+                          "MODERATE",
+                          "HARD"
+                        ]
+                      },
+                      "volume": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "number",
+                                "minimum": 0
+                              },
+                              "unit": {
+                                "enum": [
+                                  "M",
+                                  "KM",
+                                  "REPS",
+                                  "KG_REPS"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "value",
+                              "unit"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "duration_min",
+                      "intervals",
+                      "work_min",
+                      "rest_min",
+                      "intensity",
+                      "volume"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "session_id",
+                  "athlete_id",
+                  "source_fact_ids",
+                  "plan_version",
+                  "authority",
+                  "scheduled_at",
+                  "workout_type",
+                  "sport",
+                  "stimuli",
+                  "dose"
+                ],
+                "additionalProperties": false
+              },
+              "actual": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "session_id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "athlete_id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "source_fact_ids": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "minItems": 1,
+                        "uniqueItems": true
+                      },
+                      "started_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "duration_min": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "execution": {
+                        "enum": [
+                          "A",
+                          "B",
+                          "C"
+                        ]
+                      },
+                      "rpe": {
+                        "anyOf": [
+                          {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 10
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "quality": {
+                        "anyOf": [
+                          {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "volume": {
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "number",
+                                "minimum": 0
+                              },
+                              "unit": {
+                                "enum": [
+                                  "M",
+                                  "KM",
+                                  "REPS",
+                                  "KG_REPS"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "value",
+                              "unit"
+                            ],
+                            "additionalProperties": false
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "session_id",
+                      "athlete_id",
+                      "source_fact_ids",
+                      "started_at",
+                      "duration_min",
+                      "execution",
+                      "rpe",
+                      "quality",
+                      "volume"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "response": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "session_id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "athlete_id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "source_fact_ids": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "minItems": 1,
+                        "uniqueItems": true
+                      },
+                      "recorded_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "pain": {
+                        "anyOf": [
+                          {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 10
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "recovery_24h": {
+                        "enum": [
+                          "NORMAL",
+                          "POOR",
+                          null
+                        ]
+                      },
+                      "recovery_48h": {
+                        "enum": [
+                          "NORMAL",
+                          "POOR",
+                          null
+                        ]
+                      },
+                      "sleep_quality": {
+                        "anyOf": [
+                          {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      },
+                      "next_session_quality": {
+                        "enum": [
+                          "GOOD",
+                          "POOR",
+                          null
+                        ]
+                      },
+                      "next_session_id": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "session_id",
+                      "athlete_id",
+                      "source_fact_ids",
+                      "recorded_at",
+                      "pain",
+                      "recovery_24h",
+                      "recovery_48h",
+                      "sleep_quality",
+                      "next_session_quality",
+                      "next_session_id"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "planned",
+              "actual",
+              "response"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "athlete_id",
+        "sessions"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "as_of",
+    "target_session_id",
+    "source_facts",
+    "athlete_data"
+  ],
+  "additionalProperties": false
+}

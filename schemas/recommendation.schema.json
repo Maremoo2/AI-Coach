@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "recommendation",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "engine_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policy_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "taxonomy_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "input_hash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "athlete_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_plan_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "state": {
+      "enum": [
+        "KEEP",
+        "PROGRESS",
+        "CONSOLIDATE",
+        "REDUCE",
+        "MOVE",
+        "AVOID_COMBINATION",
+        "INSUFFICIENT_EVIDENCE"
+      ]
+    },
+    "authority": {
+      "const": "ADVISORY_ONLY"
+    },
+    "requires_hq_approval": {
+      "const": true
+    },
+    "confidence": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "label": {
+          "enum": [
+            "LOW",
+            "MODERATE",
+            "HIGH"
+          ]
+        },
+        "meaning": {
+          "const": "EVIDENCE_STRENGTH_NOT_PROBABILITY"
+        }
+      },
+      "required": [
+        "score",
+        "label",
+        "meaning"
+      ],
+      "additionalProperties": false
+    },
+    "reason_codes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "session_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "excluded_session_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "source_fact_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "complete_sessions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "successful_sessions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "adverse_sessions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "quality_trend": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "combination": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "exposed_session_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "baseline_session_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "poor_rate": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "baseline_poor_rate": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "key",
+                "exposed_session_ids",
+                "baseline_session_ids",
+                "poor_rate",
+                "baseline_poor_rate"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "session_ids",
+        "excluded_session_ids",
+        "source_fact_ids",
+        "complete_sessions",
+        "successful_sessions",
+        "adverse_sessions",
+        "quality_trend",
+        "combination"
+      ],
+      "additionalProperties": false
+    },
+    "derived_features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "completion_ratio": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "complete_response": {
+            "type": "boolean"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "adverse": {
+            "type": "boolean"
+          },
+          "previous_session_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "combination": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "session_id",
+          "completion_ratio",
+          "complete_response",
+          "success",
+          "adverse",
+          "previous_session_id",
+          "combination"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "engine_version",
+    "policy_version",
+    "taxonomy_version",
+    "input_hash",
+    "athlete_id",
+    "target_session_id",
+    "target_plan_version",
+    "as_of",
+    "state",
+    "authority",
+    "requires_hq_approval",
+    "confidence",
+    "reason_codes",
+    "constraints",
+    "evidence",
+    "derived_features"
+  ],
+  "additionalProperties": false
+}

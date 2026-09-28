@@ -1,0 +1,720 @@
+{
+  "expected_state": "CONSOLIDATE",
+  "request": {
+    "schema_version": "1.0",
+    "as_of": "2026-07-03T08:00:00Z",
+    "target_session_id": "session-4",
+    "source_facts": [
+      {
+        "id": "session-0-plan",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-05-31T08:00:00Z",
+        "kind": "HQ_PLAN",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-0-actual",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-01T09:00:00Z",
+        "kind": "DEVICE",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-0-response",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-04T09:00:00Z",
+        "kind": "ATHLETE_REPORT",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "next-0-plan",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-02T20:00:00Z",
+        "kind": "HQ_PLAN",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "next-0-actual",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-03T21:00:00Z",
+        "kind": "DEVICE",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-1-plan",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-07T08:00:00Z",
+        "kind": "HQ_PLAN",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-1-actual",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-08T09:00:00Z",
+        "kind": "DEVICE",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-1-response",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-11T09:00:00Z",
+        "kind": "ATHLETE_REPORT",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "next-1-plan",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-09T20:00:00Z",
+        "kind": "HQ_PLAN",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "next-1-actual",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-10T21:00:00Z",
+        "kind": "DEVICE",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-2-plan",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-14T08:00:00Z",
+        "kind": "HQ_PLAN",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-2-actual",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-15T09:00:00Z",
+        "kind": "DEVICE",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-2-response",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-18T09:00:00Z",
+        "kind": "ATHLETE_REPORT",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "next-2-plan",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-16T20:00:00Z",
+        "kind": "HQ_PLAN",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "next-2-actual",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-17T21:00:00Z",
+        "kind": "DEVICE",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-3-plan",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-21T08:00:00Z",
+        "kind": "HQ_PLAN",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-3-actual",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-22T09:00:00Z",
+        "kind": "DEVICE",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-3-response",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-25T09:00:00Z",
+        "kind": "ATHLETE_REPORT",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "next-3-plan",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-23T20:00:00Z",
+        "kind": "HQ_PLAN",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "next-3-actual",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-24T21:00:00Z",
+        "kind": "DEVICE",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-4-plan",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-28T08:00:00Z",
+        "kind": "HQ_PLAN",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-4-actual",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-29T09:00:00Z",
+        "kind": "DEVICE",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "session-4-response",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-07-02T09:00:00Z",
+        "kind": "ATHLETE_REPORT",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "next-4-plan",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-06-30T20:00:00Z",
+        "kind": "HQ_PLAN",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      },
+      {
+        "id": "next-4-actual",
+        "source": "synthetic-fixture",
+        "recorded_at": "2026-07-01T21:00:00Z",
+        "kind": "DEVICE",
+        "supersedes": null,
+        "payload": {
+          "synthetic": true
+        }
+      }
+    ],
+    "athlete_data": {
+      "athlete_id": "synthetic-athlete",
+      "sessions": [
+        {
+          "planned": {
+            "session_id": "session-0",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-0-plan"
+            ],
+            "plan_version": "hq-1",
+            "authority": "HQ",
+            "scheduled_at": "2026-06-01T08:00:00Z",
+            "workout_type": "RUN_EASY",
+            "sport": "RUN",
+            "stimuli": [
+              "AEROBIC"
+            ],
+            "dose": {
+              "duration_min": 60,
+              "intervals": 0,
+              "work_min": 0,
+              "rest_min": 0,
+              "intensity": "EASY",
+              "volume": null
+            }
+          },
+          "actual": {
+            "session_id": "session-0",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-0-actual"
+            ],
+            "started_at": "2026-06-01T08:00:00Z",
+            "duration_min": 60,
+            "execution": "A",
+            "rpe": 5,
+            "quality": 0.5,
+            "volume": null
+          },
+          "response": {
+            "session_id": "session-0",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-0-response"
+            ],
+            "recorded_at": "2026-06-04T09:00:00Z",
+            "pain": 0,
+            "recovery_24h": "NORMAL",
+            "recovery_48h": "NORMAL",
+            "sleep_quality": 0.8,
+            "next_session_quality": "GOOD",
+            "next_session_id": "next-0"
+          }
+        },
+        {
+          "planned": {
+            "session_id": "next-0",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "next-0-plan"
+            ],
+            "plan_version": "hq-1",
+            "authority": "HQ",
+            "scheduled_at": "2026-06-03T20:00:00Z",
+            "workout_type": "RUN_EASY",
+            "sport": "RUN",
+            "stimuli": [
+              "AEROBIC"
+            ],
+            "dose": {
+              "duration_min": 20,
+              "intervals": 0,
+              "work_min": 0,
+              "rest_min": 0,
+              "intensity": "EASY",
+              "volume": null
+            }
+          },
+          "actual": {
+            "session_id": "next-0",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "next-0-actual"
+            ],
+            "started_at": "2026-06-03T20:00:00Z",
+            "duration_min": 20,
+            "execution": "A",
+            "rpe": 5,
+            "quality": 0.9,
+            "volume": null
+          },
+          "response": null
+        },
+        {
+          "planned": {
+            "session_id": "session-1",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-1-plan"
+            ],
+            "plan_version": "hq-1",
+            "authority": "HQ",
+            "scheduled_at": "2026-06-08T08:00:00Z",
+            "workout_type": "RUN_EASY",
+            "sport": "RUN",
+            "stimuli": [
+              "AEROBIC"
+            ],
+            "dose": {
+              "duration_min": 60,
+              "intervals": 0,
+              "work_min": 0,
+              "rest_min": 0,
+              "intensity": "EASY",
+              "volume": null
+            }
+          },
+          "actual": {
+            "session_id": "session-1",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-1-actual"
+            ],
+            "started_at": "2026-06-08T08:00:00Z",
+            "duration_min": 60,
+            "execution": "A",
+            "rpe": 5,
+            "quality": 0.9,
+            "volume": null
+          },
+          "response": {
+            "session_id": "session-1",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-1-response"
+            ],
+            "recorded_at": "2026-06-11T09:00:00Z",
+            "pain": 0,
+            "recovery_24h": "NORMAL",
+            "recovery_48h": "NORMAL",
+            "sleep_quality": 0.8,
+            "next_session_quality": "GOOD",
+            "next_session_id": "next-1"
+          }
+        },
+        {
+          "planned": {
+            "session_id": "next-1",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "next-1-plan"
+            ],
+            "plan_version": "hq-1",
+            "authority": "HQ",
+            "scheduled_at": "2026-06-10T20:00:00Z",
+            "workout_type": "RUN_EASY",
+            "sport": "RUN",
+            "stimuli": [
+              "AEROBIC"
+            ],
+            "dose": {
+              "duration_min": 20,
+              "intervals": 0,
+              "work_min": 0,
+              "rest_min": 0,
+              "intensity": "EASY",
+              "volume": null
+            }
+          },
+          "actual": {
+            "session_id": "next-1",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "next-1-actual"
+            ],
+            "started_at": "2026-06-10T20:00:00Z",
+            "duration_min": 20,
+            "execution": "A",
+            "rpe": 5,
+            "quality": 0.9,
+            "volume": null
+          },
+          "response": null
+        },
+        {
+          "planned": {
+            "session_id": "session-2",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-2-plan"
+            ],
+            "plan_version": "hq-1",
+            "authority": "HQ",
+            "scheduled_at": "2026-06-15T08:00:00Z",
+            "workout_type": "RUN_EASY",
+            "sport": "RUN",
+            "stimuli": [
+              "AEROBIC"
+            ],
+            "dose": {
+              "duration_min": 60,
+              "intervals": 0,
+              "work_min": 0,
+              "rest_min": 0,
+              "intensity": "EASY",
+              "volume": null
+            }
+          },
+          "actual": {
+            "session_id": "session-2",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-2-actual"
+            ],
+            "started_at": "2026-06-15T08:00:00Z",
+            "duration_min": 60,
+            "execution": "A",
+            "rpe": 5,
+            "quality": 0.9,
+            "volume": null
+          },
+          "response": {
+            "session_id": "session-2",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-2-response"
+            ],
+            "recorded_at": "2026-06-18T09:00:00Z",
+            "pain": 0,
+            "recovery_24h": "NORMAL",
+            "recovery_48h": "NORMAL",
+            "sleep_quality": 0.8,
+            "next_session_quality": "GOOD",
+            "next_session_id": "next-2"
+          }
+        },
+        {
+          "planned": {
+            "session_id": "next-2",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "next-2-plan"
+            ],
+            "plan_version": "hq-1",
+            "authority": "HQ",
+            "scheduled_at": "2026-06-17T20:00:00Z",
+            "workout_type": "RUN_EASY",
+            "sport": "RUN",
+            "stimuli": [
+              "AEROBIC"
+            ],
+            "dose": {
+              "duration_min": 20,
+              "intervals": 0,
+              "work_min": 0,
+              "rest_min": 0,
+              "intensity": "EASY",
+              "volume": null
+            }
+          },
+          "actual": {
+            "session_id": "next-2",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "next-2-actual"
+            ],
+            "started_at": "2026-06-17T20:00:00Z",
+            "duration_min": 20,
+            "execution": "A",
+            "rpe": 5,
+            "quality": 0.9,
+            "volume": null
+          },
+          "response": null
+        },
+        {
+          "planned": {
+            "session_id": "session-3",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-3-plan"
+            ],
+            "plan_version": "hq-1",
+            "authority": "HQ",
+            "scheduled_at": "2026-06-22T08:00:00Z",
+            "workout_type": "RUN_EASY",
+            "sport": "RUN",
+            "stimuli": [
+              "AEROBIC"
+            ],
+            "dose": {
+              "duration_min": 60,
+              "intervals": 0,
+              "work_min": 0,
+              "rest_min": 0,
+              "intensity": "EASY",
+              "volume": null
+            }
+          },
+          "actual": {
+            "session_id": "session-3",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-3-actual"
+            ],
+            "started_at": "2026-06-22T08:00:00Z",
+            "duration_min": 60,
+            "execution": "A",
+            "rpe": 5,
+            "quality": 0.9,
+            "volume": null
+          },
+          "response": {
+            "session_id": "session-3",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-3-response"
+            ],
+            "recorded_at": "2026-06-25T09:00:00Z",
+            "pain": 0,
+            "recovery_24h": "NORMAL",
+            "recovery_48h": "NORMAL",
+            "sleep_quality": 0.8,
+            "next_session_quality": "GOOD",
+            "next_session_id": "next-3"
+          }
+        },
+        {
+          "planned": {
+            "session_id": "next-3",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "next-3-plan"
+            ],
+            "plan_version": "hq-1",
+            "authority": "HQ",
+            "scheduled_at": "2026-06-24T20:00:00Z",
+            "workout_type": "RUN_EASY",
+            "sport": "RUN",
+            "stimuli": [
+              "AEROBIC"
+            ],
+            "dose": {
+              "duration_min": 20,
+              "intervals": 0,
+              "work_min": 0,
+              "rest_min": 0,
+              "intensity": "EASY",
+              "volume": null
+            }
+          },
+          "actual": {
+            "session_id": "next-3",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "next-3-actual"
+            ],
+            "started_at": "2026-06-24T20:00:00Z",
+            "duration_min": 20,
+            "execution": "A",
+            "rpe": 5,
+            "quality": 0.9,
+            "volume": null
+          },
+          "response": null
+        },
+        {
+          "planned": {
+            "session_id": "session-4",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-4-plan"
+            ],
+            "plan_version": "hq-1",
+            "authority": "HQ",
+            "scheduled_at": "2026-06-29T08:00:00Z",
+            "workout_type": "RUN_EASY",
+            "sport": "RUN",
+            "stimuli": [
+              "AEROBIC"
+            ],
+            "dose": {
+              "duration_min": 60,
+              "intervals": 0,
+              "work_min": 0,
+              "rest_min": 0,
+              "intensity": "EASY",
+              "volume": null
+            }
+          },
+          "actual": {
+            "session_id": "session-4",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-4-actual"
+            ],
+            "started_at": "2026-06-29T08:00:00Z",
+            "duration_min": 60,
+            "execution": "A",
+            "rpe": 5,
+            "quality": 0.9,
+            "volume": null
+          },
+          "response": {
+            "session_id": "session-4",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "session-4-response"
+            ],
+            "recorded_at": "2026-07-02T09:00:00Z",
+            "pain": 0,
+            "recovery_24h": "NORMAL",
+            "recovery_48h": "NORMAL",
+            "sleep_quality": 0.8,
+            "next_session_quality": "GOOD",
+            "next_session_id": "next-4"
+          }
+        },
+        {
+          "planned": {
+            "session_id": "next-4",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "next-4-plan"
+            ],
+            "plan_version": "hq-1",
+            "authority": "HQ",
+            "scheduled_at": "2026-07-01T20:00:00Z",
+            "workout_type": "RUN_EASY",
+            "sport": "RUN",
+            "stimuli": [
+              "AEROBIC"
+            ],
+            "dose": {
+              "duration_min": 20,
+              "intervals": 0,
+              "work_min": 0,
+              "rest_min": 0,
+              "intensity": "EASY",
+              "volume": null
+            }
+          },
+          "actual": {
+            "session_id": "next-4",
+            "athlete_id": "synthetic-athlete",
+            "source_fact_ids": [
+              "next-4-actual"
+            ],
+            "started_at": "2026-07-01T20:00:00Z",
+            "duration_min": 20,
+            "execution": "A",
+            "rpe": 5,
+            "quality": 0.9,
+            "volume": null
+          },
+          "response": null
+        }
+      ]
+    }
+  }
+}

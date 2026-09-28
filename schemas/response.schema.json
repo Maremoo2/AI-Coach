@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "response",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "athlete_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_fact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pain": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "recovery_24h": {
+      "enum": [
+        "NORMAL",
+        "POOR",
+        null
+      ]
+    },
+    "recovery_48h": {
+      "enum": [
+        "NORMAL",
+        "POOR",
+        null
+      ]
+    },
+    "sleep_quality": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "next_session_quality": {
+      "enum": [
+        "GOOD",
+        "POOR",
+        null
+      ]
+    },
+    "next_session_id": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "session_id",
+    "athlete_id",
+    "source_fact_ids",
+    "recorded_at",
+    "pain",
+    "recovery_24h",
+    "recovery_48h",
+    "sleep_quality",
+    "next_session_quality",
+    "next_session_id"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "planned_workout",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "athlete_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_fact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "plan_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority": {
+      "const": "HQ"
+    },
+    "scheduled_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "workout_type": {
+      "enum": [
+        "RUN_EASY",
+        "RUN_THRESHOLD",
+        "BIKE_AEROBIC",
+        "BIKE_SWEETSPOT",
+        "BIKE_THRESHOLD",
+        "SWIM_TECHNIQUE",
+        "SWIM_CSS",
+        "STRENGTH_GENERAL",
+        "CROSSFIT"
+      ]
+    },
+    "sport": {
+      "enum": [
+        "RUN",
+        "BIKE",
+        "SWIM",
+        "STRENGTH",
+        "MIXED"
+      ]
+    },
+    "stimuli": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "AEROBIC",
+          "THRESHOLD",
+          "SWEETSPOT",
+          "TECHNIQUE",
+          "STRENGTH",
+          "ANAEROBIC"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "dose": {
+      "type": "object",
+      "properties": {
+        "duration_min": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "intervals": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "work_min": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rest_min": {
+          "type": "number",
+          "minimum": 0
+        },
+        "intensity": {
+          "enum": [
+            "EASY",
+            "MODERATE",
+            "HARD"
+          ]
+        },
+        "volume": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "unit": {
+                  "enum": [
+                    "M",
+                    "KM",
+                    "REPS",
+                    "KG_REPS"
+                  ]
+                }
+              },
+              "required": [
+                "value",
+                "unit"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "duration_min",
+        "intervals",
+        "work_min",
+        "rest_min",
+        "intensity",
+        "volume"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "session_id",
+    "athlete_id",
+    "source_fact_ids",
+    "plan_version",
+    "authority",
+    "scheduled_at",
+    "workout_type",
+    "sport",
+    "stimuli",
+    "dose"
+  ],
+  "additionalProperties": false
+}
