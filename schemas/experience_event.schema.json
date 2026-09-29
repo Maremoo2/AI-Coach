@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "experience_event",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "event_id",
+    "athlete_id",
+    "experience_id",
+    "event_type",
+    "occurred_at",
+    "recorded_at",
+    "source",
+    "payload",
+    "supersedes_event_id",
+    "idempotency_key"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "event_id": {"type": "string", "minLength": 1},
+    "athlete_id": {"type": "string", "minLength": 1},
+    "experience_id": {"type": "string", "minLength": 1},
+    "event_type": {
+      "enum": [
+        "PLANNED_EXPOSURE",
+        "ACTUAL_EXPOSURE",
+        "SUBJECTIVE_RESPONSE",
+        "RECOVERY_RESPONSE",
+        "LIFE_CONTEXT",
+        "DOWNSTREAM_OUTCOME",
+        "BENCHMARK_STATE",
+        "COACH_DECISION",
+        "CORRECTION"
+      ]
+    },
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "source": {
+      "type": "object",
+      "required": ["kind", "ref"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "HQ",
+            "TREDICT",
+            "ATHLETE",
+            "CALENDAR_DERIVED",
+            "COACH",
+            "DEVICE",
+            "SYSTEM_DERIVED"
+          ]
+        },
+        "ref": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "payload": {"type": "object"},
+    "supersedes_event_id": {
+      "anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]
+    },
+    "idempotency_key": {
+      "anyOf": [{"type": "string", "minLength": 1}, {"type": "null"}]
+    }
+  },
+  "additionalProperties": false
+}
