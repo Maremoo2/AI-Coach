@@ -14,7 +14,7 @@ def main():
     try:
         with open(args.context, encoding="utf-8") as source:
             context = json.load(source)
-        print(json.dumps(build_daily_brief(context), indent=2, ensure_ascii=False))
+        print(json.dumps(build_daily_brief(context), indent=2, ensure_ascii=True))
     except Exception as exc:
         print(f"ai-coach-v1: {exc}", file=sys.stderr)
         raise SystemExit(2)
