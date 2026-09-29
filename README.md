@@ -1,4 +1,4 @@
-# AI Coach / Treningsmotor — v1.2
+# AI Coach / Treningsmotor — v1.3
 
 A deterministic, inspectable coaching system for a conversational premium coach.
 It combines an HQ-owned training plan with actual training response, adherence,
@@ -8,6 +8,22 @@ benchmarks.
 HQ remains the sole training-plan authority. AI Coach can select only
 pre-approved A/B/C variants for today's session and can send bounded proposals
 back to HQ. It cannot silently rewrite the plan.
+
+
+## Local coaching app (v1.3)
+
+The local v1 interface is now included alongside the existing v1.2 orchestration
+and response-profile foundation. Run `.\Start-Coach.ps1 -Demo` on Windows, or
+install the package and run `ai-coach-app --demo --open`.
+
+It adds goals and measurements, check-ins, weekly summaries, optional language
+assistance, and separately authorized local HQ plan approval. The local app does
+not automatically consume the experience/profile store or connect to a deployed
+Tredict runtime. Those existing modules and commands remain available unchanged.
+
+See [local app setup and limitations](docs/local-app.md),
+[application architecture](docs/v1-architecture.md), and
+[source and transfer analysis](docs/v1-analysis.md).
 
 ## What v1 adds
 

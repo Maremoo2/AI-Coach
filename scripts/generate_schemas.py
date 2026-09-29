@@ -91,3 +91,8 @@ for name, schema in {"planned_workout": planned, "actual_workout": actual,
                      "evaluation_request": request, "recommendation": recommendation}.items():
     schema = {"$schema": "https://json-schema.org/draft/2020-12/schema", "title": name, **schema}
     (ROOT / f"{name}.schema.json").write_text(json.dumps(schema, indent=2) + "\n", encoding="utf-8")
+
+from ai_coach.app_contracts import CONTRACTS
+for name, schema in CONTRACTS.items():
+    schema = {"$schema": "https://json-schema.org/draft/2020-12/schema", "title": f"app_{name}", **schema}
+    (ROOT / f"app_{name}.schema.json").write_text(json.dumps(schema, indent=2) + "\n", encoding="utf-8")

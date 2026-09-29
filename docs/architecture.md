@@ -80,3 +80,7 @@ Add tested device-specific adapters before raw-data automation. Candidate
 ranking should return proposals through the same HQ review boundary. New
 features need explicit units and enough raw measurements. Evaluate any future
 ML against this versioned baseline on held-out athlete data before adoption.
+
+## V1 application extension
+The v0.1 engine remains version-frozen. See [v1 architecture](v1-architecture.md) for the local application, journal, proposal compiler and separate HQ writer.
+

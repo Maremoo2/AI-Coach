@@ -2,7 +2,8 @@
 from copy import deepcopy
 from datetime import timedelta
 
-from . import __version__
+# The frozen baseline keeps its version for exact v0.1 audit replay.
+ENGINE_VERSION = "0.1.0"
 from .contracts import digest, hq_envelope, instant, validate_request
 from .features import derive, dose_key
 from .taxonomy import TAXONOMY_VERSION
@@ -100,7 +101,7 @@ def evaluate(request):
     related_ids.update(r["response"]["next_session_id"] for r in cohort if r["response"] and r["response"]["next_session_id"])
     fact_ids = sorted({ref for r in sessions if r["planned"]["session_id"] in related_ids
                        for item in (r["planned"], r["actual"], r["response"]) if item for ref in item["source_fact_ids"]})
-    result = {"schema_version": "1.0", "engine_version": __version__, "policy_version": POLICY_VERSION,
+    result = {"schema_version": "1.0", "engine_version": ENGINE_VERSION, "policy_version": POLICY_VERSION,
               "taxonomy_version": TAXONOMY_VERSION, "input_hash": digest(data),
               "athlete_id": data["athlete_data"]["athlete_id"], "target_session_id": data["target_session_id"],
               "target_plan_version": target["planned"]["plan_version"], "as_of": data["as_of"],

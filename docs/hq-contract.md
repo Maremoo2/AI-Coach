@@ -46,3 +46,7 @@ probability of safety. HQ may reject any recommendation, including `KEEP`.
 
 v0.1 implements the engine side of this contract. No live HQ service, approval
 database or training-plan integration is assumed to exist.
+
+## Local v1 HQ adapter
+The local application implements HQAuthority as the sole HQ_PLAN writer in its normal workflow. It requires a separate HQ credential, fresh journal revision, unchanged policy/code/schema manifest and explicit approval. The engine and language adapter cannot approve. Explicit HQ-authored imports are a separate authorized path. This is not a connection to an external HQ service or a security boundary against a local administrator. See [v1 architecture](v1-architecture.md).
+
