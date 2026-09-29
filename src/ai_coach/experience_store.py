@@ -147,8 +147,7 @@ class ExperienceStore:
                 ).fetchone()
             if existing:
                 if (
-                    existing[0] == event["event_id"]
-                    and json.loads(existing[1]) == event["payload"]
+                    json.loads(existing[1]) == event["payload"]
                     and existing[2] == event["event_type"]
                     and existing[3] == event["experience_id"]
                 ):

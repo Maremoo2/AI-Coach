@@ -1,4 +1,4 @@
-# AI Coach / Treningsmotor — v1.0
+# AI Coach / Treningsmotor — v1.1
 
 A deterministic, inspectable coaching system for a conversational premium coach.
 It combines an HQ-owned training plan with actual training response, adherence,
@@ -23,6 +23,11 @@ back to HQ. It cannot silently rewrite the plan.
 - Conservative personal rule learning from repeated observations.
 - Runtime tool policy for Tredict and Google Calendar.
 - Existing append-only feedback audit and deterministic replay.
+- Append-only Athlete Experience Store for longitudinal learning.
+- Privacy-reduced life-context capture, corrections and decision history.
+- Adaptive post-workout/recovery sampling to reduce questionnaire noise.
+- Plan↔actual reconciliation that refuses ambiguous matches.
+- Sequence evidence that stores successful as well as adverse combinations.
 - CI tests on Windows/Linux and Python 3.11/3.12.
 
 No ML is used in v1. No connector credentials or private athlete records are
@@ -126,9 +131,17 @@ more autonomy.
 - [x] Explainable confidence and evidence references.
 - [x] Append-only audit history and deterministic replay.
 - [x] Cross-platform automated tests.
-- [~] Feed the engine enough real athlete sessions to replace synthetic evidence
+- [x] Append-only Athlete Experience Store with stable experience IDs.
+- [x] Immutable source events plus explicit correction events.
+- [x] Idempotent ingestion so connector retries do not duplicate evidence.
+- [x] Privacy-reduced calendar/life context rather than raw diary content.
+- [x] Adaptive subjective sampling for high-information sessions.
+- [x] Coach-decision and benchmark event types for later policy evaluation.
+- [x] Deterministic plan↔actual reconciliation with ambiguous-match protection.
+- [x] GOOD/POOR/UNKNOWN sequence capture so successful combinations count too.
+- [~] Feed the store enough real athlete sessions to replace synthetic evidence
   with meaningful personal history.
-- [~] Reconcile HQ plan snapshots and actual Tredict sessions consistently.
+- [~] Run reconciliation automatically against fresh HQ/Tredict data.
 
 **Exit criteria:** the system can explain why a dose should be kept, progressed,
 consolidated, reduced or moved, and the explanation points back to actual
@@ -203,7 +216,8 @@ population-level rules.
   strength and technique work.
 - [ ] Learn spacing effects between CrossFit, strength, run quality, bike quality
   and long sessions.
-- [ ] Track next-session quality and 24–48 h recovery cost.
+- [x] Data model can capture next-session quality and 24–48 h recovery without imputing missing values.
+- [ ] Learn a reliable personal recovery-cost model from accumulated exposures.
 - [ ] Detect recurring A -> B/C/MOVE patterns as plan-design feedback.
 - [ ] Add evidence decay so fresh tolerance matters more than old history.
 - [ ] Add explicit pattern invalidation when life context explains a bad response.
@@ -346,6 +360,25 @@ planned to partial or complete. A feature is not complete merely because a
 module exists; it is complete only when the intended end-to-end behavior is
 tested and usable in the real coaching loop.
 
+## Athlete learning foundation
+
+v1.1 starts collecting the kind of longitudinal evidence later coaching versions
+will need. It does **not** add ML. Instead it creates a clean, append-only record
+of plan, execution, response, recovery, context, downstream outcome, benchmark
+state, coach decision and explicit corrections.
+
+The store deliberately keeps facts separate from interpretation so future
+algorithms can recompute features without rewriting history. Missing data remains
+missing, and calendar context is reduced before storage so meeting titles,
+attendees and unrelated personal details are not copied into the training
+database.
+
+Routine easy sessions can remain silent after an initial baseline. Extra
+questions are prioritized for key sessions, benchmarks, novel doses, hard work,
+modified execution, low quality and pain signals.
+
+See `docs/experience-foundation.md`.
+
 ## Run
 
 ~~~sh
@@ -354,6 +387,7 @@ python -m pip install -e .
 python -m unittest discover -s tests -t . -v
 ai-coach examples/synthetic_progress.json --audit history.sqlite
 ai-coach-v1 examples/coach_context.json
+ai-coach-experience --db athlete.sqlite export
 ~~~
 
 ## Core modules
@@ -365,7 +399,12 @@ ai-coach-v1 examples/coach_context.json
 - spot_checks.py: benchmark freshness and placement candidates.
 - personalization.py: repeated-pattern learning without ML.
 - tool_policy.py: Tredict / Calendar / venue capability boundary.
-- audit.py: append-only SQLite history and replay.
+- audit.py: append-only feedback-evaluation history and replay.
+- experience_store.py: append-only athlete experience/event history.
+- experience_collector.py: normalized capture from HQ/Tredict/athlete/context sources.
+- reconciliation.py: conservative HQ-plan ↔ actual-activity matching.
+- sampling.py: adaptive low-noise subjective capture.
+- sequences.py: positive/negative spacing evidence for later personalization.
 
 See docs/premium-coach-v1.md and docs/runtime-orchestration.md for the v1
 operating model.
