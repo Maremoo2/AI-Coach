@@ -60,6 +60,292 @@ Tredict + Calendar + athlete input
 
 There is no direct AI-Coach → training-plan write edge.
 
+
+## Roadmap to the premium coach
+
+This roadmap tracks the path from the current deterministic training engine to a
+high-touch personal performance coach. The guiding product principle is simple:
+workout generation is not the premium feature. The premium value comes from
+accountability, decision support, life-aware planning, objective progress checks
+and increasingly accurate athlete-specific adaptation.
+
+**Status legend**
+
+- `[x]` implemented and covered by the current core.
+- `[~]` partially implemented; foundation exists but the full operational loop is not yet live.
+- `[ ]` planned.
+
+### Target operating model
+
+~~~text
+HQ plan + Tredict + Calendar + recovery + athlete input
+                         |
+                         v
+                AI Coach decision layer
+                         |
+        +----------------+----------------+
+        |                |                |
+        v                v                v
+ today's action    accountability     spot checks
+ concrete workout motivation          progress evidence
+        |                |                |
+        +----------------+----------------+
+                         v
+                 actual execution
+                         |
+                         v
+          plan -> actual -> response
+                         |
+                         v
+              personal pattern learning
+                         |
+                         v
+             bounded proposal back to HQ
+                         |
+                         v
+                 HQ decides the plan
+~~~
+
+The coach should eventually make the daily training decision feel simple to the
+athlete while keeping the underlying reasoning inspectable. HQ remains the only
+authority that can change the actual training plan.
+
+### Phase 1 — Stable coaching core
+**Target: now through October 2026**  
+**Status: [x] core implemented; [~] still accumulating real athlete evidence**
+
+Goal: make the foundation boring, deterministic and trustworthy before adding
+more autonomy.
+
+- [x] HQ-only plan authority.
+- [x] Planned -> actual -> response -> downstream-quality feedback model.
+- [x] A/B/C execution model.
+- [x] Workout taxonomy separated from physiological stimulus.
+- [x] KEEP / PROGRESS / CONSOLIDATE / REDUCE / MOVE / AVOID_COMBINATION /
+  INSUFFICIENT_EVIDENCE states.
+- [x] Explainable confidence and evidence references.
+- [x] Append-only audit history and deterministic replay.
+- [x] Cross-platform automated tests.
+- [~] Feed the engine enough real athlete sessions to replace synthetic evidence
+  with meaningful personal history.
+- [~] Reconcile HQ plan snapshots and actual Tredict sessions consistently.
+
+**Exit criteria:** the system can explain why a dose should be kept, progressed,
+consolidated, reduced or moved, and the explanation points back to actual
+comparable evidence rather than generic coaching rules.
+
+### Phase 2 — Daily coach
+**Target: October–November 2026**  
+**Status: [~] deterministic daily-coach core exists; live runtime orchestration remains**
+
+Goal: answer "what should I do today?" with one clear, context-aware execution
+decision and a complete session prescription.
+
+- [x] Daily coaching brief.
+- [x] GREEN / AMBER / RED execution gate.
+- [x] Selection of HQ-approved A/B/C variants only.
+- [x] Versioned workout library.
+- [x] Capacity-aware cycling targets from FTP.
+- [x] Hooks for running-threshold and swim-CSS targets.
+- [x] MyWhoosh-aware indoor cycling venue selection.
+- [x] EVO gym / treadmill venue support.
+- [x] Post-workout feedback language.
+- [~] Automatically assemble the daily context from fresh Tredict data.
+- [~] Automatically reconcile today's HQ plan with the actual planned workout.
+- [ ] Use fresh calendar constraints in the same daily decision cycle without
+  requiring manual context assembly.
+- [ ] Produce one concise athlete-facing daily brief from the live runtime.
+
+**Exit criteria:** the athlete can ask "what do I do today?" and receive a
+complete answer based on fresh plan, training and life context without manually
+copying activity data.
+
+### Phase 3 — Accountability and life-aware coaching
+**Target: November–December 2026**  
+**Status: [~] adherence logic exists; [ ] full life-context loop**
+
+Goal: behave more like a coach/project manager than a static training plan.
+
+- [x] 14-day adherence summary.
+- [x] Separate Plan A, modified sessions and misses.
+- [x] No catch-up stacking after missed training.
+- [x] Restore-rhythm logic when adherence falls.
+- [~] Google Calendar capability and runtime policy defined.
+- [ ] Read work meetings, travel and available time windows as planning
+  constraints.
+- [ ] Detect when a planned session no longer fits the real day.
+- [ ] Suggest the smallest HQ-compatible change that preserves the week's key
+  stimulus.
+- [ ] Add proactive follow-up when an important session is repeatedly missed or
+  modified.
+- [ ] Distinguish time limitation, motivation, fatigue, illness/injury signals and
+  scheduling conflict instead of treating every miss equally.
+
+**Exit criteria:** training flows around real life without silently deleting key
+stimuli or trying to compensate by overloading later days.
+
+### Phase 4 — Adaptive personal coach
+**Target: December 2026–February 2027**  
+**Status: [~] conservative learning ledger exists; [ ] richer personal system identification**
+
+Goal: learn how this athlete actually responds rather than merely applying
+population-level rules.
+
+- [x] Single exposure stays an observation.
+- [x] Repeated evidence can become a candidate rule.
+- [x] Stronger repeated evidence can become an established rule.
+- [x] Athlete/HQ correction overrides inferred rules.
+- [x] Personal rules cannot write the plan.
+- [x] One-step progression proposals.
+- [ ] Learn tolerated training frequency by discipline.
+- [ ] Learn tolerated weekly and rolling volume ranges.
+- [ ] Learn dose-response patterns for threshold, sweet spot, long endurance,
+  strength and technique work.
+- [ ] Learn spacing effects between CrossFit, strength, run quality, bike quality
+  and long sessions.
+- [ ] Track next-session quality and 24–48 h recovery cost.
+- [ ] Detect recurring A -> B/C/MOVE patterns as plan-design feedback.
+- [ ] Add evidence decay so fresh tolerance matters more than old history.
+- [ ] Add explicit pattern invalidation when life context explains a bad response.
+
+**Exit criteria:** the coach can state not only what usually works in training,
+but what repeatedly works or fails for this athlete, with evidence count,
+recency and confidence.
+
+### Phase 5 — Objective testing and spot checks
+**Target: January–March 2027**  
+**Status: [~] benchmark scheduling exists; [ ] complete protocols and trend interpretation**
+
+Goal: periodically test whether the training system is producing the adaptations
+it is supposed to produce.
+
+- [x] Benchmark freshness engine.
+- [x] Benchmarks count as quality sessions.
+- [x] Avoid stacking a benchmark on another quality day.
+- [x] HQ approval required for placement.
+- [ ] Dedicated MyWhoosh FTP/ramp-test protocol instead of using a normal
+  threshold session as a proxy.
+- [ ] Formal CSS test protocol and trend storage.
+- [ ] Running 5 km / threshold benchmark protocol.
+- [ ] Submaximal strength benchmark appropriate for endurance training.
+- [ ] Durability checks for long run / long bike / mountain work.
+- [ ] Compare benchmark change with training dose and recovery history.
+- [ ] Trigger a course-review proposal when objective markers stagnate or regress
+  despite adequate adherence.
+
+**Exit criteria:** the coach periodically asks "are we actually improving?" and
+can correct course from objective evidence rather than only subjective feel.
+
+### Phase 6 — Triathlon performance coach
+**Target: March–May 2027**  
+**Status: [ ] planned**
+
+Goal: move from separate sport coaching toward race-specific system performance.
+
+- [ ] Brick-session taxonomy and progression families.
+- [ ] Race-intensity bike-to-run durability analysis.
+- [ ] Long-session fueling rehearsal tracking.
+- [ ] Aero/TT-specific execution context.
+- [ ] Open-water / swim-to-bike transition work.
+- [ ] Race-specific power and pace sustainability.
+- [ ] Transition and equipment rehearsal checklist.
+- [ ] Use the planned 70.3 race around late May 2027 as an acceptance test of the
+  whole coaching system.
+
+**Exit criteria:** the 70.3 test produces a full evidence package for swim,
+bike, run, pacing, fueling, transitions, recovery and plan accuracy.
+
+### Phase 7 — Race execution system
+**Target: June–August 2027**  
+**Status: [ ] planned**
+
+Goal: stop adding large experimental features and use a stable coach to execute
+the Ironman build.
+
+- [ ] Full Ironman race rehearsals.
+- [ ] Race-power and race-pace validation.
+- [ ] Fueling, fluid and sodium rehearsal history.
+- [ ] Long-session durability and cardiac-drift monitoring where data supports it.
+- [ ] Open-water and transition readiness.
+- [ ] Equipment and contingency planning.
+- [ ] Heat/weather adaptation inputs when relevant.
+- [ ] Taper response monitoring.
+- [ ] Race-week decision tree for normal, fatigued, travel-disrupted and
+  illness/injury scenarios.
+- [ ] Final Copenhagen race plan remains an HQ decision.
+
+**Exit criteria:** by the final build, development effort shifts from "build the
+coach" to "use the coach to execute the race".
+
+### Phase 8 — Full performance coach
+**Target: after August 2027**  
+**Status: [ ] future**
+
+Goal: generalize the proven coaching system beyond the Ironman build.
+
+Potential scope:
+
+- body-composition goals without compromising training quality;
+- sleep and recovery behavior;
+- strength and injury-resilience development;
+- Backyard Ultra preparation;
+- mountain / 2000 m summit durability;
+- Norway end-to-end cycling preparation;
+- changing work/travel stress;
+- long-term multi-goal prioritization.
+
+### Product progression
+
+The intended product maturity can be summarized as:
+
+~~~text
+1. "I can analyse your training."
+                    |
+                    v
+2. "I know what today's approved session is."
+                    |
+                    v
+3. "I know why that is the right decision today."
+                    |
+                    v
+4. "I know how you usually respond."
+                    |
+                    v
+5. "I detect when we are drifting off course."
+                    |
+                    v
+6. "I help HQ correct early and keep training aligned with real life."
+~~~
+
+### Development priorities
+
+Build order should favor coaching value over impressive-looking features.
+
+**Prioritize:** reliable data ingestion, plan reconciliation, accountability,
+calendar constraints, personal response learning, objective benchmarks,
+race-specific execution and explainability.
+
+**Defer until the core earns them:** machine learning, large dashboards, a
+standalone mobile app, hundreds of workout templates, opaque readiness scores,
+automatic MyWhoosh control, or other features that look sophisticated without
+improving the decision loop.
+
+### Key validation milestones
+
+- **Winter 2026/27:** personal learning period. Accumulate enough clean
+  plan/actual/response history to identify real tolerance patterns.
+- **Spring 2027:** validation period. Use benchmarks and race-specific sessions to
+  challenge the coach's assumptions.
+- **70.3 around late May 2027:** whole-system acceptance test.
+- **June–August 2027:** stabilization and Ironman-specific execution rather than
+  major architecture changes.
+- **IRONMAN Copenhagen, 22 August 2027:** primary race-execution milestone.
+
+Progress in this section should be updated whenever functionality moves from
+planned to partial or complete. A feature is not complete merely because a
+module exists; it is complete only when the intended end-to-end behavior is
+tested and usable in the real coaching loop.
+
 ## Run
 
 ~~~sh
