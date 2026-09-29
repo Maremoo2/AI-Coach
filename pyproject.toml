@@ -15,7 +15,7 @@ ai-coach-v1 = "ai_coach.coach_cli:main"
 
 [tool.setuptools]
 packages = ["ai_coach", "ai_coach.schemas"]
-package-dir = {ai_coach = "src/ai_coach", ai_coach.schemas = "schemas"}
+package-dir = {ai_coach = "src/ai_coach", "ai_coach.schemas" = "schemas"}
 
 [tool.setuptools.package-data]
 "ai_coach.schemas" = ["*.json"]
