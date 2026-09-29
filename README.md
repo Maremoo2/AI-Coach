@@ -141,7 +141,9 @@ more autonomy.
 - [x] GOOD/POOR/UNKNOWN sequence capture so successful combinations count too.
 - [~] Feed the store enough real athlete sessions to replace synthetic evidence
   with meaningful personal history.
-- [~] Run reconciliation automatically against fresh HQ/Tredict data.
+- [x] Live external runtime now captures fresh Tredict plan/activity/recovery facts into a private ledger.
+- [x] Runtime reconciliation is automated with explicit-link priority and ambiguity protection.
+- [~] Accumulate enough real athlete sessions for high-confidence personal rules.
 
 **Exit criteria:** the system can explain why a dose should be kept, progressed,
 consolidated, reduced or moved, and the explanation points back to actual
@@ -163,8 +165,9 @@ decision and a complete session prescription.
 - [x] MyWhoosh-aware indoor cycling venue selection.
 - [x] EVO gym / treadmill venue support.
 - [x] Post-workout feedback language.
-- [~] Automatically assemble the daily context from fresh Tredict data.
-- [~] Automatically reconcile today's HQ plan with the actual planned workout.
+- [x] Fresh Tredict plan/activity/recovery collection is running continuously in the external runtime.
+- [x] Plan↔actual reconciliation is running continuously in the external runtime.
+- [~] Feed the collected ledger back into the full daily coaching brief automatically.
 - [ ] Use fresh calendar constraints in the same daily decision cycle without
   requiring manual context assembly.
 - [ ] Produce one concise athlete-facing daily brief from the live runtime.
@@ -377,7 +380,7 @@ Routine easy sessions can remain silent after an initial baseline. Extra
 questions are prioritized for key sessions, benchmarks, novel doses, hard work,
 modified execution, low quality and pain signals.
 
-See `docs/experience-foundation.md`.
+See `docs/experience-foundation.md` and `docs/live-runtime-deployment.md`.
 
 ## Run
 
@@ -405,6 +408,7 @@ ai-coach-experience --db athlete.sqlite export
 - reconciliation.py: conservative HQ-plan ↔ actual-activity matching.
 - sampling.py: adaptive low-noise subjective capture.
 - sequences.py: positive/negative spacing evidence for later personalization.
+- runtime_sync.py: stable live-ledger keys and connector-neutral reconciliation helpers.
 
 See docs/premium-coach-v1.md and docs/runtime-orchestration.md for the v1
 operating model.
