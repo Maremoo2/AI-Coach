@@ -1,0 +1,201 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "coach_context",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "athlete_id",
+    "as_of",
+    "hq_plan",
+    "execution_gate",
+    "adherence"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "athlete_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "language": {
+      "enum": [
+        "no",
+        "en"
+      ]
+    },
+    "hq_plan": {
+      "type": "object",
+      "required": [
+        "plan_version",
+        "today"
+      ],
+      "properties": {
+        "plan_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "today": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "session_id",
+                "variants"
+              ],
+              "properties": {
+                "session_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "variants": {
+                  "type": "object",
+                  "required": [
+                    "A"
+                  ],
+                  "properties": {
+                    "A": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "B": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "C": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "execution_gate": {
+      "type": "object",
+      "required": [
+        "status",
+        "reasons"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "GREEN",
+            "AMBER",
+            "RED"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "environment": {
+      "type": "object"
+    },
+    "capacities": {
+      "type": "object"
+    },
+    "adherence": {
+      "type": "object",
+      "required": [
+        "planned_14d",
+        "completed_a",
+        "completed_b",
+        "completed_c",
+        "missed"
+      ],
+      "properties": {
+        "planned_14d": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completed_a": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completed_b": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completed_c": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "missed": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "goal_sports": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "RUN",
+          "BIKE",
+          "SWIM",
+          "STRENGTH",
+          "MIXED"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "benchmarks": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "days_since_quality": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "performance_context": {
+      "type": "object"
+    },
+    "feedback": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,3 +1,3 @@
-"""Advisory feedback only. HQ is the sole plan authority."""
+"""AI Coach v1: conversational coaching on top of an HQ-owned training plan."""
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
