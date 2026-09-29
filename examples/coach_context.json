@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "athlete_id": "synthetic-athlete",
+  "as_of": "2026-09-29T06:00:00Z",
+  "language": "no",
+  "hq_plan": {
+    "plan_version": "hq-demo-1",
+    "today": {
+      "session_id": "demo-session",
+      "variants": {
+        "A": "BIKE_SWEETSPOT_2X15",
+        "B": "BIKE_AEROBIC_60",
+        "C": "RECOVERY_30"
+      }
+    }
+  },
+  "execution_gate": {
+    "status": "GREEN",
+    "reasons": []
+  },
+  "environment": {
+    "season": "WINTER",
+    "available_tools": [
+      "TREDICT",
+      "GOOGLE_CALENDAR",
+      "MYWHOOSH",
+      "EVO_GYM"
+    ],
+    "preferred_venues": {}
+  },
+  "capacities": {
+    "cycling_ftp_w": 250
+  },
+  "adherence": {
+    "planned_14d": 8,
+    "completed_a": 7,
+    "completed_b": 0,
+    "completed_c": 0,
+    "missed": 1
+  },
+  "goal_sports": [
+    "RUN",
+    "BIKE",
+    "SWIM",
+    "STRENGTH"
+  ],
+  "benchmarks": [],
+  "days_since_quality": 8,
+  "performance_context": {
+    "sleep": "GREEN",
+    "stress": "GREEN",
+    "fueling": "GREEN",
+    "travel": false
+  },
+  "feedback": null
+}

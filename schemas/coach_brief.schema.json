@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "coach_brief",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "coach_policy_version",
+    "athlete_id",
+    "as_of",
+    "authority",
+    "requires_hq_approval_for_plan_changes",
+    "plan_version",
+    "execution_gate",
+    "selected_variant",
+    "workout",
+    "motivation",
+    "accountability",
+    "performance_actions",
+    "spot_check",
+    "adaptation_proposal",
+    "runtime_reads",
+    "post_workout_prompt",
+    "hq_actions",
+    "constraints"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "coach_policy_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "athlete_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "authority": {
+      "const": "COACH_ADVISORY_HQ_PLAN_ONLY"
+    },
+    "requires_hq_approval_for_plan_changes": {
+      "const": true
+    },
+    "plan_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "execution_gate": {
+      "type": "object"
+    },
+    "selected_variant": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "NONE",
+        "REVIEW"
+      ]
+    },
+    "workout": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "motivation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "accountability": {
+      "type": "object"
+    },
+    "performance_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "spot_check": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "adaptation_proposal": {
+      "anyOf": [
+        {
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "runtime_reads": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "post_workout_prompt": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hq_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

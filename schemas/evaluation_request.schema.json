@@ -112,13 +112,27 @@
                   "workout_type": {
                     "enum": [
                       "RUN_EASY",
+                      "RUN_LONG",
                       "RUN_THRESHOLD",
+                      "RUN_INTERVAL",
+                      "RUN_HILLS",
+                      "RUN_BRICK",
                       "BIKE_AEROBIC",
+                      "BIKE_ENDURANCE",
                       "BIKE_SWEETSPOT",
                       "BIKE_THRESHOLD",
+                      "BIKE_VO2",
+                      "BIKE_BRICK",
                       "SWIM_TECHNIQUE",
+                      "SWIM_ENDURANCE",
                       "SWIM_CSS",
+                      "SWIM_OPEN_WATER",
                       "STRENGTH_GENERAL",
+                      "STRENGTH_FULLBODY",
+                      "STRENGTH_LOWER",
+                      "STRENGTH_UPPER",
+                      "MOBILITY",
+                      "RECOVERY",
                       "CROSSFIT"
                     ]
                   },
@@ -140,7 +154,14 @@
                         "SWEETSPOT",
                         "TECHNIQUE",
                         "STRENGTH",
-                        "ANAEROBIC"
+                        "ANAEROBIC",
+                        "VO2MAX",
+                        "LONG_ENDURANCE",
+                        "STRENGTH_ENDURANCE",
+                        "BRICK",
+                        "SKILL",
+                        "MOBILITY",
+                        "RECOVERY"
                       ]
                     },
                     "minItems": 1,
