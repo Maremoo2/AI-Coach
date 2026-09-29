@@ -4,6 +4,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import closing
 from pathlib import Path
 
 from ai_coach.experience import make_event, normalize_life_context
@@ -103,7 +104,7 @@ class ExperienceStoreTests(unittest.TestCase):
 
     def test_update_and_delete_are_rejected(self):
         self.collector.capture_plan(self.planned(), NOW)
-        with sqlite3.connect(self.db_path) as db:
+        with closing(sqlite3.connect(self.db_path)) as db:
             with self.assertRaises(sqlite3.DatabaseError):
                 db.execute("UPDATE experience_events SET payload='{}' WHERE sequence=1")
             with self.assertRaises(sqlite3.DatabaseError):
