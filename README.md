@@ -1,4 +1,4 @@
-# AI Coach / Treningsmotor — v1.1
+# AI Coach / Treningsmotor — v1.2
 
 A deterministic, inspectable coaching system for a conversational premium coach.
 It combines an HQ-owned training plan with actual training response, adherence,
@@ -28,6 +28,8 @@ back to HQ. It cannot silently rewrite the plan.
 - Adaptive post-workout/recovery sampling to reduce questionnaire noise.
 - Plan↔actual reconciliation that refuses ambiguous matches.
 - Sequence evidence that stores successful as well as adverse combinations.
+- Weekly Personal Response Profile materialization with recency-weighted evidence.
+- Dose, spacing, weekly-tolerance and coach-decision profile views.
 - CI tests on Windows/Linux and Python 3.11/3.12.
 
 No ML is used in v1. No connector credentials or private athlete records are
@@ -144,6 +146,8 @@ more autonomy.
 - [x] Live external runtime now captures fresh Tredict plan/activity/recovery facts into a private ledger.
 - [x] Runtime reconciliation is automated with explicit-link priority and ambiguity protection.
 - [~] Accumulate enough real athlete sessions for high-confidence personal rules.
+- [x] Deterministic Personal Response Profile materializer with UNKNOWN-preserving absorption logic.
+- [x] Weekly profile snapshots for dose response, spacing, tolerance and coach-decision evaluation.
 
 **Exit criteria:** the system can explain why a dose should be kept, progressed,
 consolidated, reduced or moved, and the explanation points back to actual
@@ -165,8 +169,8 @@ decision and a complete session prescription.
 - [x] MyWhoosh-aware indoor cycling venue selection.
 - [x] EVO gym / treadmill venue support.
 - [x] Post-workout feedback language.
-- [x] Fresh Tredict plan/activity/recovery collection is running continuously in the external runtime.
-- [x] Plan↔actual reconciliation is running continuously in the external runtime.
+- [x] Fresh Tredict plan/activity/recovery collection runs daily in the external runtime.
+- [x] Plan↔actual reconciliation runs as part of the daily external sync.
 - [~] Feed the collected ledger back into the full daily coaching brief automatically.
 - [ ] Use fresh calendar constraints in the same daily decision cycle without
   requiring manual context assembly.
@@ -213,16 +217,14 @@ population-level rules.
 - [x] Athlete/HQ correction overrides inferred rules.
 - [x] Personal rules cannot write the plan.
 - [x] One-step progression proposals.
-- [ ] Learn tolerated training frequency by discipline.
-- [ ] Learn tolerated weekly and rolling volume ranges.
-- [ ] Learn dose-response patterns for threshold, sweet spot, long endurance,
-  strength and technique work.
-- [ ] Learn spacing effects between CrossFit, strength, run quality, bike quality
-  and long sessions.
+- [~] Materialize recent training frequency by discipline; reliable personal tolerance thresholds still need more data.
+- [~] Materialize eight-week frequency/known-duration tolerance history; personal range inference waits for enough observations.
+- [~] Automatically materialize dose-response profiles for workout type and exact dose signature; confidence grows only with real observations.
+- [~] Automatically materialize spacing/sequence profiles with good, poor and UNKNOWN outcomes plus baseline comparison.
 - [x] Data model can capture next-session quality and 24–48 h recovery without imputing missing values.
 - [ ] Learn a reliable personal recovery-cost model from accumulated exposures.
 - [ ] Detect recurring A -> B/C/MOVE patterns as plan-design feedback.
-- [ ] Add evidence decay so fresh tolerance matters more than old history.
+- [x] Recency weighting makes fresh 28/56/84/180-day evidence progressively more important than old history.
 - [ ] Add explicit pattern invalidation when life context explains a bad response.
 
 **Exit criteria:** the coach can state not only what usually works in training,
@@ -380,7 +382,7 @@ Routine easy sessions can remain silent after an initial baseline. Extra
 questions are prioritized for key sessions, benchmarks, novel doses, hard work,
 modified execution, low quality and pain signals.
 
-See `docs/experience-foundation.md` and `docs/live-runtime-deployment.md`.
+See `docs/experience-foundation.md`, `docs/live-runtime-deployment.md` and `docs/personal-response-profile.md`.
 
 ## Run
 
@@ -391,6 +393,7 @@ python -m unittest discover -s tests -t . -v
 ai-coach examples/synthetic_progress.json --audit history.sqlite
 ai-coach-v1 examples/coach_context.json
 ai-coach-experience --db athlete.sqlite export
+ai-coach-profile --db athlete.sqlite --as-of 2026-10-01T12:00:00Z
 ~~~
 
 ## Core modules
@@ -409,6 +412,8 @@ ai-coach-experience --db athlete.sqlite export
 - sampling.py: adaptive low-noise subjective capture.
 - sequences.py: positive/negative spacing evidence for later personalization.
 - runtime_sync.py: stable live-ledger keys and connector-neutral reconciliation helpers.
+- profile.py: deterministic Personal Response Profile materialization and evidence gates.
+- profile_runtime.py: stable private-ledger profile-table contract.
 
 See docs/premium-coach-v1.md and docs/runtime-orchestration.md for the v1
 operating model.

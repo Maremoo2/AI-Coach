@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "personal_response_profile",
+  "type": "object",
+  "required": [
+    "schema_version", "profile_version", "athlete_id", "as_of", "authority",
+    "can_write_plan", "windows_days", "data_quality", "dose_profiles",
+    "sequence_profiles", "weekly_tolerance", "decision_profiles", "constraints"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "profile_version": {"type": "string", "minLength": 1},
+    "athlete_id": {"type": "string", "minLength": 1},
+    "as_of": {"type": "string", "format": "date-time"},
+    "authority": {"const": "DESCRIPTIVE_ADVISORY_ONLY"},
+    "can_write_plan": {"const": false},
+    "windows_days": {"type": "object"},
+    "data_quality": {"type": "object"},
+    "dose_profiles": {"type": "array", "items": {"type": "object"}},
+    "sequence_profiles": {"type": "array", "items": {"type": "object"}},
+    "weekly_tolerance": {"type": "array", "items": {"type": "object"}},
+    "decision_profiles": {"type": "array", "items": {"type": "object"}},
+    "constraints": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}
