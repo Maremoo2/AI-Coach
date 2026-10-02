@@ -1,4 +1,4 @@
-# AI Coach / Treningsmotor — v1.3
+# AI Coach / Treningsmotor — v1.4
 
 A deterministic, inspectable coaching system for a conversational premium coach.
 It combines an HQ-owned training plan with actual training response, adherence,
@@ -9,6 +9,14 @@ HQ remains the sole training-plan authority. AI Coach can select only
 pre-approved A/B/C variants for today's session and can send bounded proposals
 back to HQ. It cannot silently rewrite the plan.
 
+
+## Personal onboarding (v1.4)
+
+The local app can now display private, dated Tredict history and the existing
+HQ plan alongside sourced goals, flexible availability and progression context.
+Monthly/weekly time uses the provider's recorded active and elapsed durations.
+Unknown response, baseline and race date remain unknown. No plan is created by
+this import. See [personal onboarding](docs/personal-onboarding.md).
 
 ## Local coaching app (v1.3)
 

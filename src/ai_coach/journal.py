@@ -69,11 +69,15 @@ class Journal:
     def project(events):
         state = {"revision": len(events), "profile": None, "goals": {}, "checkins": {},
                  "plan": None, "plans": {}, "proposals": {}, "evaluations": {}, "imports": {},
+                 "source_snapshot": None, "source_snapshots": {},
                  "last_event_hash": events[-1]["event_hash"] if events else "GENESIS"}
         for event in events:
             kind, key, value = event["kind"], event["entity_id"], deepcopy(event["payload"])
             if kind == "PROFILE":
                 state["profile"] = value
+            elif kind == "SOURCE_SNAPSHOT":
+                state["source_snapshot"] = value
+                state["source_snapshots"][key] = value
             elif kind == "HQ_PLAN":
                 state["plan"] = value
                 state["plans"][value["version"]] = value

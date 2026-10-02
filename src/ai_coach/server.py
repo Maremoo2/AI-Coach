@@ -98,6 +98,9 @@ class Handler(BaseHTTPRequestHandler):
                 result = self.server.service.propose(revision, data.get("week_start"))
             elif path == "/api/import":
                 result = self.server.service.import_evidence(data["value"], revision)
+            elif path == "/api/source-import":
+                from .onboarding import import_snapshot
+                result = import_snapshot(self.server.journal, data["value"], revision)
             elif path == "/api/hq/decision":
                 result = self.server.hq.decide(data["proposal_id"], data["decision"], self.headers.get("X-HQ-Token"), revision, self.server.service.clock())
                 result = {"revision": result["revision"]}

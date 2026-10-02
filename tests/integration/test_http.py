@@ -73,3 +73,16 @@ class HTTPTests(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertFalse(reply["plan_changed"])
         self.assertEqual(before, self.journal.read())
+
+    def test_source_snapshot_import_is_authenticated_and_does_not_write_plan(self):
+        from tests.integration.test_onboarding import snapshot
+        self.request("/api/profile", {"expected_revision": 0, "value": profile()})
+        body = {"expected_revision": 1, "value": snapshot()}
+        self.assertEqual(self.request("/api/source-import", body, {"Authorization": ""})[0], 403)
+        self.assertEqual(self.request("/api/source-import", body)[0], 200)
+        status, state = self.request("/api/state")
+        self.assertEqual(status, 200)
+        self.assertIsNone(state["plan"])
+        self.assertEqual(state["source_context"]["total_activities"], 1)
+        self.assertEqual(self.request("/api/propose", {"expected_revision": 2})[0], 400)
+        self.assertEqual(self.request("/api/health")[1]["source_snapshots"], 1)

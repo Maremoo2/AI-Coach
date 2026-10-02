@@ -75,7 +75,7 @@ python -m unittest discover -s tests -t . -v
 ai-coach examples/synthetic_progress.json --audit history.sqlite
 ```
 
-Samlet pakkeversjon er 1.3.0. Motorens algoritmeversjon er 0.1.0; samlet taksonomi er 1.1. Replay sammenligner også versjonsmetadata. Historikk fra eldre pakker må replayes med opprinnelig kodeversjon for identisk resultat. Schemas ligger i
+Samlet pakkeversjon er 1.4.0. Motorens algoritmeversjon er 0.1.0; samlet taksonomi er 1.1. Replay sammenligner også versjonsmetadata. Historikk fra eldre pakker må replayes med opprinnelig kodeversjon for identisk resultat. Schemas ligger i
 `schemas/`, syntetiske fixtures i `tests/fixtures/`. CI kjører Windows og Ubuntu.
 
 Se [v1-arkitektur](v1-architecture.md), [kilde- og overføringsanalyse](v1-analysis.md),
@@ -83,3 +83,7 @@ Se [v1-arkitektur](v1-architecture.md), [kilde- og overføringsanalyse](v1-analy
 [motorpolicy](policy.md), [taksonomi](taxonomy.md) og [repo-audit](repo-audit.md).
 
 Denne lokale appen er levert sammen med eksisterende v1.2-moduler. Den bruker ikke automatisk deres experience-/profilstore eller en ekstern Tredict-runtime. Se repoets README for de separate kommandoene.
+
+## Personlig oppstart
+
+V1.4 støtter privat datert historieimport, mål med kildehenvisning, flytende tilgjengelighet og lesekopi av gjeldende HQ-plan. Se [personlig oppstart](personal-onboarding.md). Dette er manuell kildeimport; kontinuerlig synk er fortsatt separat.

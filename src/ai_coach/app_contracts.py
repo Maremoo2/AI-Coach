@@ -31,7 +31,7 @@ ID = {"type": "string", "pattern": "^[A-Za-z0-9_-]{1,80}$"}
 DATE = {"type": "string", "format": "date"}
 TIME = {"type": "string", "format": "date-time"}
 PROFILE = obj({"athlete_id": ID, "name": TEXT, "timezone": TEXT,
-    "weekly_minutes": num(0, 2400), "max_session_minutes": num(5, 480),
+    "weekly_minutes": nullable(num(0, 2400)), "max_session_minutes": nullable(num(5, 480)),
     "available_days": arr({"type": "integer", "minimum": 0, "maximum": 6}, uniqueItems=True),
     "preferred_workouts": arr({"enum": list(WORKOUTS)}, minItems=1, uniqueItems=True),
     "blocked_workouts": arr({"enum": list(WORKOUTS)}, uniqueItems=True),

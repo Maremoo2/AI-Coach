@@ -37,6 +37,11 @@ class CoachService:
                 elif kind == "checkin":
                     require(instant(value["observed_at"]) <= instant(as_of), "Future checkin")
                     known = {s["id"]: s for p in state["plans"].values() for s in p["sessions"]}
+                    for snapshot in state.get("source_snapshots", {}).values():
+                        for planned in snapshot["athlete_data"]["planned"]:
+                            known.setdefault(planned["id"], {"date": planned["local_date"]})
+                        for actual in snapshot["athlete_data"]["activities"]:
+                            known.setdefault("actual-" + actual["id"], {"date": actual["local_date"]})
                     session = known.get(value["session_id"])
                     require(session is not None, "Checkin needs a known HQ session")
                     observed_date = local_date(state["profile"], value["observed_at"])
@@ -84,5 +89,7 @@ class CoachService:
             if evaluate(request) != state["evaluations"][key]["recommendation"]:
                 mismatches.append(key)
         return {"journal_integrity": "PASS", "replay": "FAIL" if mismatches else "PASS" if state["imports"] else "NO_EVIDENCE",
+                "source_snapshots": len(state.get("source_snapshots", {})),
+                "source_collected_at": (state.get("source_snapshot") or {}).get("collected_at"),
                 "replayed": len(state["imports"]), "mismatches": mismatches,
                 "effectiveness": "NOT_VALIDATED", "auto_promotion": False, "plan_authority": "HQ"}

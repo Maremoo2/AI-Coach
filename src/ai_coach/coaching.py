@@ -65,6 +65,8 @@ def alerts(state, as_of):
 
 def plan_constraints(plan, profile):
     errors = []
+    if profile["weekly_minutes"] is None or profile["max_session_minutes"] is None:
+        return ["AVAILABILITY_NOT_CONFIRMED"]
     total = sum(s["duration_min"] for s in plan["sessions"])
     if total > profile["weekly_minutes"]:
         errors.append("WEEKLY_TIME_BUDGET")
@@ -91,6 +93,10 @@ def compile_proposal(state, as_of, week_start=None):
     profile = state["profile"]
     if profile is None:
         raise ValueError("Registrer profilen først.")
+    if profile["weekly_minutes"] is None or profile["max_session_minutes"] is None:
+        raise ValueError("Bekreft tilgjengelig tid før nye planforslag.")
+    if state.get("source_snapshot") and state["plan"] is None:
+        raise ValueError("Ekstern HQ-plan er importert som kildesnapshot. HQ må eksplisitt opprette lokal plan før doseforslag.")
     today = local_date(profile, as_of)
     current = state["plan"]
     target_week = date.fromisoformat(week_start) if week_start else date.fromisoformat(current["week_start"]) if current else today - timedelta(days=today.weekday())
@@ -207,7 +213,10 @@ def overview(state, as_of):
     elif profile["coaching_tone"] == "ENCOURAGING":
         message = "Vi tar dette steg for steg. " + message
     missing = sum(c["rpe"] is None or c["quality"] is None or c["pain"] is None or c["recovery"] == "UNKNOWN" for c in recent)
+    from .onboarding import source_overview
+    source_context = source_overview(state.get("source_snapshot"), as_of, profile["timezone"])
     return {"needs_onboarding": False, "as_of": as_of, "revision": state["revision"], "profile": profile,
+            "source_context": source_context,
             "today": today.isoformat(), "plan": state["plan"], "upcoming": upcoming,
             "goals": [goal_progress(g, today) for g in state["goals"].values()],
             "checkins": list(state["checkins"].values()), "proposals": list(state["proposals"].values()),
@@ -229,15 +238,28 @@ def coach_reply(state, message, as_of):
     if any(word in lower for word in ("smerte", "vondt", "pain", "skade")):
         return "Registrer smerte og hva du merket i innsjekken. Jeg kan ikke diagnostisere dette. HQ må vurdere belastningen; jeg gir ikke et progresjonsforslag ut fra denne meldingen."
     if any(word in lower for word in ("mål", "goal", "progres")):
+        if data.get("source_context"):
+            return " ".join(g["description"] for g in data["source_context"]["goals"]) + " Måldato og fremgangsprosent beregnes ikke uten bekreftet konkurranse og baseline."
         active = [g for g in data["goals"] if g["status"] == "ACTIVE"]
         if not active:
             return "Sett ett målbart mål: utgangspunkt, ønsket verdi, enhet og dato. Milepælene blir kontrollpunkter, ikke løfter om fremgang."
         g = active[0]
         return f"Målet ditt er {g['title']}: {g['target']} {g['unit']} innen {g['target_date']}. Sist registrert: {g['current']} {g['unit']}. Legg inn en ny måling for å følge utviklingen."
     if any(word in lower for word in ("uke", "week", "oppsummer")):
+        if data.get("source_context"):
+            s = data["source_context"]
+            return f"Importerte Tredict-data til {s['latest_activity_date']}: {s['recent_count']} aktiviteter og {s['recent_minutes']} registrerte aktivitetsminutter siste sju dager. {s['assessment']} Dette er et datert snapshot, ikke kontinuerlig synk."
         w = data["weekly_review"]
         return f"Siste sju dager: {w['completed']} fullførte, {w['partial']} delvise og {w['skipped']} droppede økter; {w['actual_minutes']} registrerte minutter. {w['incomplete_checkins']} innsjekker mangler responsdata. " + data["coach_message"]
     if any(word in lower for word in ("dag", "økt", "today", "plan")):
+        if data.get("source_context") and not data["plan"]:
+            if data["source_context"]["today_rest"]:
+                return "HQ har eksplisitt registrert denne datoen som hvile i det importerte plangrunnlaget. Det opprettes ingen ekstra økt. Sjekk siste HQ-vurdering hvis planen siden er endret."
+            upcoming = data["source_context"]["upcoming"]
+            if upcoming:
+                s = upcoming[0]
+                return f"Neste økt i importert HQ/Tredict-plan: {s['title']}, {s['local_date']}. {s['dose_note']} Planen er et datert kildesnapshot; sjekk siste HQ-vurdering før gjennomføring."
+            return "Ingen kommende økt i importens dekningsperiode. Dette betyr ikke at HQ har bestemt hvile."
         if data["upcoming"]:
             s = data["upcoming"][0]
             return f"Neste godkjente økt: {TITLES[s['workout_type']]}, {s['duration_min']} minutter, {s['date']}. {s['purpose']} " + data["coach_message"]

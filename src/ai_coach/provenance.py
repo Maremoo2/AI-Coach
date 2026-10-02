@@ -6,7 +6,7 @@ from .contracts import digest
 
 
 def manifest():
-    modules = ("coaching.py", "contracts.py", "app_contracts.py", "engine.py", "features.py", "hq.py")
+    modules = ("coaching.py", "contracts.py", "app_contracts.py", "engine.py", "features.py", "hq.py", "onboarding.py", "taxonomy.py")
     code = {name: files("ai_coach").joinpath(name).read_text(encoding="utf-8").replace("\r\n", "\n") for name in modules}
     schemas = {p.name: p.read_text(encoding="utf-8").replace("\r\n", "\n")
                for p in files("ai_coach.schemas").iterdir() if p.name.endswith(".json")}
