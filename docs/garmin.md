@@ -7,12 +7,11 @@ søvn/HRV-import eller planwrites i denne leveransen.
 
 ## Windows
 
-Garmin krever Python 3.12+. Den øvrige coachen støtter fortsatt 3.11.
-Opprett et separat miljø med installert Python 3.12:
+Garmin krever Python 3.12+. Den øvrige coachen støtter fortsatt 3.11. Installer
+Python 3.12, og start deretter Garmin-coachen. Første kjøring oppretter et eget
+miljø og installerer Garmin-avhengighetene:
 
 ```powershell
-py -3.12 -m venv .venv-garmin
-.\.venv-garmin\Scripts\python -m pip install -e '.[garmin]'
 .\Start-Garmin-Coach.ps1 -Login
 .\Start-Garmin-Coach.ps1
 ```
