@@ -86,3 +86,18 @@ class HTTPTests(unittest.TestCase):
         self.assertEqual(state["source_context"]["total_activities"], 1)
         self.assertEqual(self.request("/api/propose", {"expected_revision": 2})[0], 400)
         self.assertEqual(self.request("/api/health")[1]["source_snapshots"], 1)
+
+    def test_garmin_authenticated_sync_and_status(self):
+        from unittest.mock import patch
+        from tests.integration.test_garmin import Fake
+        self.assertEqual(self.request('/api/garmin/status', headers={'Authorization':''})[0],403)
+        self.assertEqual(self.request('/api/garmin/sync',{'expected_revision':0},headers={'Authorization':''})[0],403)
+        self.request('/api/profile',{'expected_revision':0,'value':profile()})
+        from ai_coach.garmin import token_directory
+        folder=token_directory(self.journal);folder.mkdir();(folder/'garmin_tokens.json').write_text('{}')
+        with patch('ai_coach.garmin.client_factory',return_value=Fake):
+            code,value=self.request('/api/garmin/sync',{'expected_revision':1})
+        self.assertEqual(code,200);self.assertEqual(value['activities'],1)
+        self.assertEqual(self.request('/api/garmin/status')[1]['last_success'],NOW)
+        self.assertEqual(self.request('/api/state')[1]['source_context']['activity_provider'],'Garmin')
+        self.assertIsNone(self.journal.state()['plan'])

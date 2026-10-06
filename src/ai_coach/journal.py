@@ -69,11 +69,16 @@ class Journal:
     def project(events):
         state = {"revision": len(events), "profile": None, "goals": {}, "checkins": {},
                  "plan": None, "plans": {}, "proposals": {}, "evaluations": {}, "imports": {},
-                 "source_snapshot": None, "source_snapshots": {},
+                 "source_snapshot": None, "source_snapshots": {}, "garmin_sync": None, "garmin_status": None, "garmin_activities": {},
                  "last_event_hash": events[-1]["event_hash"] if events else "GENESIS"}
         for event in events:
             kind, key, value = event["kind"], event["entity_id"], deepcopy(event["payload"])
-            if kind == "PROFILE":
+            if kind == "GARMIN_SYNC":
+                state["garmin_sync"] = value
+                state["garmin_activities"].update({a["id"]: a for a in value["activities"]})
+            elif kind == "GARMIN_STATUS":
+                state["garmin_status"] = value
+            elif kind == "PROFILE":
                 state["profile"] = value
             elif kind == "SOURCE_SNAPSHOT":
                 state["source_snapshot"] = value

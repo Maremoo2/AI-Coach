@@ -95,7 +95,7 @@ def compile_proposal(state, as_of, week_start=None):
         raise ValueError("Registrer profilen først.")
     if profile["weekly_minutes"] is None or profile["max_session_minutes"] is None:
         raise ValueError("Bekreft tilgjengelig tid før nye planforslag.")
-    if state.get("source_snapshot") and state["plan"] is None:
+    if (state.get("source_snapshot") or state.get("garmin_sync")) and state["plan"] is None:
         raise ValueError("Ekstern HQ-plan er importert som kildesnapshot. HQ må eksplisitt opprette lokal plan før doseforslag.")
     today = local_date(profile, as_of)
     current = state["plan"]
@@ -214,7 +214,8 @@ def overview(state, as_of):
         message = "Vi tar dette steg for steg. " + message
     missing = sum(c["rpe"] is None or c["quality"] is None or c["pain"] is None or c["recovery"] == "UNKNOWN" for c in recent)
     from .onboarding import source_overview
-    source_context = source_overview(state.get("source_snapshot"), as_of, profile["timezone"])
+    from .garmin import merged_snapshot
+    source_context = source_overview(merged_snapshot(state), as_of, profile["timezone"])
     return {"needs_onboarding": False, "as_of": as_of, "revision": state["revision"], "profile": profile,
             "source_context": source_context,
             "today": today.isoformat(), "plan": state["plan"], "upcoming": upcoming,

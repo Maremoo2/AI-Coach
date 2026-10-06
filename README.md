@@ -1,4 +1,4 @@
-# AI Coach / Treningsmotor — v1.4
+# AI Coach / Treningsmotor — v1.5
 
 A deterministic, inspectable coaching system for a conversational premium coach.
 It combines an HQ-owned training plan with actual training response, adherence,
@@ -9,6 +9,23 @@ HQ remains the sole training-plan authority. AI Coach can select only
 pre-approved A/B/C variants for today's session and can send bounded proposals
 back to HQ. It cannot silently rewrite the plan.
 
+
+## Garmin connection (v1.5)
+
+Optional direct, unofficial Garmin activity sync now replaces Tredict activity
+history in the local view. Local terminal login, manual sync, private tokens,
+source preservation and account/duplicate checks are implemented. HQ remains the
+sole plan authority. See [Garmin setup](docs/garmin.md).
+
+**Current local app status:** no scheduled sync, Garmin file import, sleep/HRV
+sync or automatic feedback-engine ingestion yet. Live account validation awaits
+local user login. Older external-runtime checkboxes below describe separate
+modules/deployments, not an automatically connected local app. Roadmap dates are
+targets, not delivery guarantees. Race choice remains conditional on athlete/HQ
+confirmation; older Copenhagen milestones below are historical planning context.
+
+Next: verify real Garmin import, connect plan/actual/subjective response to the
+engine, then verify the full user flow. TrainingPeaks is deferred.
 
 ## Personal onboarding (v1.4)
 
@@ -62,7 +79,7 @@ checked into this public repository.
 ## Architecture
 
 ~~~text
-Tredict + Calendar + athlete input
+Garmin / optional imports + Calendar + athlete input
               |
               v
        normalized context
@@ -109,7 +126,7 @@ and increasingly accurate athlete-specific adaptation.
 ### Target operating model
 
 ~~~text
-HQ plan + Tredict + Calendar + recovery + athlete input
+HQ plan + activity sources + Calendar + recovery + athlete input
                          |
                          v
                 AI Coach decision layer
@@ -167,7 +184,7 @@ more autonomy.
 - [x] GOOD/POOR/UNKNOWN sequence capture so successful combinations count too.
 - [~] Feed the store enough real athlete sessions to replace synthetic evidence
   with meaningful personal history.
-- [x] Live external runtime now captures fresh Tredict plan/activity/recovery facts into a private ledger.
+- [~] Separate external runtime supports Tredict collection; local app now supports manual Garmin activity sync.
 - [x] Runtime reconciliation is automated with explicit-link priority and ambiguity protection.
 - [~] Accumulate enough real athlete sessions for high-confidence personal rules.
 - [x] Deterministic Personal Response Profile materializer with UNKNOWN-preserving absorption logic.
@@ -193,8 +210,8 @@ decision and a complete session prescription.
 - [x] MyWhoosh-aware indoor cycling venue selection.
 - [x] EVO gym / treadmill venue support.
 - [x] Post-workout feedback language.
-- [x] Fresh Tredict plan/activity/recovery collection runs daily in the external runtime.
-- [x] Plan↔actual reconciliation runs as part of the daily external sync.
+- [~] Local Garmin activity sync is manual; scheduled collection is not active in the app.
+- [~] Reconciliation modules exist; Garmin-to-HQ matching is not yet connected in the local app.
 - [~] Feed the collected ledger back into the full daily coaching brief automatically.
 - [ ] Use fresh calendar constraints in the same daily decision cycle without
   requiring manual context assembly.

@@ -42,6 +42,8 @@ class CoachService:
                             known.setdefault(planned["id"], {"date": planned["local_date"]})
                         for actual in snapshot["athlete_data"]["activities"]:
                             known.setdefault("actual-" + actual["id"], {"date": actual["local_date"]})
+                    for actual in state.get("garmin_activities", {}).values():
+                        known.setdefault("actual-" + actual["id"], {"date": actual["local_date"]})
                     session = known.get(value["session_id"])
                     require(session is not None, "Checkin needs a known HQ session")
                     observed_date = local_date(state["profile"], value["observed_at"])

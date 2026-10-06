@@ -67,6 +67,9 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(200, files("ai_coach").joinpath("web", name).read_bytes(), mime)
         try:
             self.guard()
+            if path == "/api/garmin/status":
+                from .garmin import status as garmin_status
+                return self.send(200, garmin_status(self.server.journal))
             if path == "/api/state":
                 return self.send(200, self.server.service.snapshot())
             if path == "/api/health":
@@ -94,6 +97,9 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError("expected_revision is required")
             if path in ("/api/profile", "/api/goal", "/api/checkin"):
                 result = self.server.service.save(path.split("/")[-1], data["value"], revision)
+            elif path == "/api/garmin/sync":
+                from .garmin import sync
+                result = sync(self.server.journal, revision, clock=self.server.service.clock)
             elif path == "/api/propose":
                 result = self.server.service.propose(revision, data.get("week_start"))
             elif path == "/api/import":
@@ -146,7 +152,7 @@ def main():
     print("AI Coach v1 — local personal application", flush=True)
     print("Open: " + url, flush=True)
     print("HQ approval code (keep private): " + hq_token, flush=True)
-    print("Stop with Ctrl+C. No external training-service sync is active.", flush=True)
+    print("Stop with Ctrl+C. Garmin sync is manual and read-only when configured.", flush=True)
     if args.open:
         import webbrowser
         webbrowser.open(url)

@@ -138,7 +138,7 @@ def source_overview(snapshot, as_of, timezone):
             subtype = a['subsport'] or a['sport']
             row['subsports'][subtype] = row['subsports'].get(subtype, 0) + (a['duration_sec'] or 0)
     rest_days = snapshot['athlete_context'].get('rest_days', [])
-    return {'collected_at': snapshot['collected_at'], 'window_start': snapshot['window_start'],
+    return {'plan_stale': not snapshot.get('plan_collected_at', snapshot['collected_at']) or (now - instant(snapshot.get('plan_collected_at', snapshot['collected_at']))).total_seconds() > 86400, 'activity_provider': snapshot.get('activity_provider', 'Tredict'), 'plan_collected_at': snapshot.get('plan_collected_at', snapshot['collected_at']), 'collected_at': snapshot['collected_at'], 'window_start': snapshot['window_start'],
             'plan_end': snapshot['plan_end'], 'stale': (now - instant(snapshot['collected_at'])).total_seconds() > 86400,
             'total_activities': len(activities), 'sport_counts': counts,
             'recent_count': len(recent), 'recent_minutes': round(sum(a['duration_sec'] or 0 for a in recent) / 60, 1),
