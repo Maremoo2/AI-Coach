@@ -2,8 +2,8 @@
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $PSScriptRoot
 $garminVenv = Join-Path $PSScriptRoot '.venv-garmin'
-$isWindows = $env:OS -eq 'Windows_NT'
-if ($isWindows) {
+$windowsHost = $env:OS -eq 'Windows_NT'
+if ($windowsHost) {
     $coachPython = Join-Path $garminVenv 'Scripts/python.exe'
     $pythonLauncher = 'py'
     $pythonArgs = @('-3.12')
