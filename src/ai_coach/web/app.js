@@ -65,4 +65,6 @@ function renderSourceContext(){
 }
 
 async function renderGarmin(){const g=await api("/api/garmin/status");$("#garmin-status").textContent=(g.connected?"Tilkoblet":"Lokal innlogging kreves")+" · Siste synk: "+(g.last_success||"aldri")+" · "+g.activities+" aktiviteter"+(g.last_error?" · "+g.last_error:"");}
-$("#garmin-sync").onclick=()=>action(async()=>{const b=$("#garmin-sync");b.disabled=true;try{const r=await api("/api/garmin/sync",{expected_revision:state.revision});notice("Garmin: "+r.activities+" aktiviteter hentet.");}finally{b.disabled=false;await refresh();}});
+$("#garmin-sync").onclick=async()=>{const b=$("#garmin-sync"),st=$("#garmin-status");b.disabled=true;st.className="";st.textContent="Synkroniserer…";let msg,err=false,r;try{r=await api("/api/garmin/sync",{expected_revision:state.revision});}catch(e){msg=e.message||"Synk feilet";err=true;if(e.status===409){try{await refresh();}catch(_){}}}
+if(!err){try{await refresh();}catch(_){}let g=null;try{g=await api("/api/garmin/status");}catch(_){}msg="Synkronisert: "+r.activities+" aktiviteter · Siste synk: "+((g&&g.last_success)||"ukjent");}
+st.textContent=msg;st.className=err?"error":"";b.disabled=false;};
