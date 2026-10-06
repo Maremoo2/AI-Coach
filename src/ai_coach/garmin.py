@@ -2,6 +2,7 @@
 import argparse
 import getpass
 import logging
+import os
 import sys
 import threading
 from datetime import datetime, timezone
@@ -120,6 +121,9 @@ def merged_snapshot(state):
     value['activity_provider'] = 'Garmin'
     return value
 
+def login_password():
+    return os.environ.get('GARMINPASSWORD') or getpass.getpass('Garmin passord: ')
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--db', type=Path, default=Path.home()/'.ai-coach'/'coach.sqlite')
@@ -130,7 +134,7 @@ def main():
         factory = client_factory()
         folder = token_directory(journal)
         folder.mkdir(parents=True, exist_ok=True, mode=0o700)
-        client = factory(email=input('Garmin e-post: ').strip(), password=getpass.getpass('Garmin passord: '),
+        client = factory(input('Garmin e-post: ').strip(), login_password(),
                          prompt_mfa=lambda: getpass.getpass('Garmin engangskode: '))
         try:
             client.login(str(folder))

@@ -1,8 +1,9 @@
 import copy
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
-from ai_coach.garmin import normalize, sync, merged_snapshot, status
+from ai_coach.garmin import normalize, sync, merged_snapshot, status, login_password
 from ai_coach.journal import Journal
 from ai_coach.service import CoachService
 from tests.app_support import profile, NOW
@@ -20,6 +21,13 @@ class GarminTests(unittest.TestCase):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.j=Journal(Path(self.temp.name)/'coach.sqlite')
         CoachService(self.j,lambda:NOW).save('profile',profile(),0)
+    def test_login_password_uses_environment_secret_or_hidden_prompt(self):
+        with patch.dict('os.environ', {'GARMINPASSWORD': 'test-only-secret'}), patch('ai_coach.garmin.getpass.getpass') as prompt:
+            self.assertEqual(login_password(), 'test-only-secret')
+            prompt.assert_not_called()
+        with patch.dict('os.environ', {'GARMINPASSWORD': ''}), patch('ai_coach.garmin.getpass.getpass', return_value='prompted-secret') as prompt:
+            self.assertEqual(login_password(), 'prompted-secret')
+            prompt.assert_called_once_with('Garmin passord: ')
     def run_sync(self, factory=Fake):
         return sync(self.j,self.j.state()['revision'],factory,lambda:NOW)
     def test_sync_repeated_raw_and_hq_boundary(self):

@@ -16,7 +16,11 @@ miljø og installerer Garmin-avhengighetene:
 .\Start-Garmin-Coach.ps1
 ```
 
-Skriv Garmin-passord og eventuell engangskode i lokal terminal, aldri i chatten.
+Ved innlogging leses `GARMINPASSWORD` fra prosessmiljøet hvis den er satt;
+ellers blir du bedt om passordet skjult i terminalen. Sett verdien via en sikker
+hemmelighetshåndtering, ikke i repoet eller i en kommando som lagres i historikken.
+Engangskode blir alltid bedt om skjult i terminalen. Fjern miljøverdien når
+innloggingen er fullført; coachen lagrer ikke passordet.
 På denne utviklingsmaskinen er Python 3.12 og miljøet allerede installert.
 Garmin-start bruker port 8767 for å unngå å kollidere med andre lokale tjenester.
 Klikk «Synkroniser nå» i Garmin-kortet, eller kjør skriptet med `-Sync`.
